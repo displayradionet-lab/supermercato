@@ -26,19 +26,56 @@ const Products = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      if (category) params.set('category', category);
-      if (organic) params.set('organic', organic);
-      if (sort) params.set('sort', sort);
-      if (minPrice) params.set('minPrice', minPrice);
-      if (maxPrice) params.set('maxPrice', maxPrice);
-      params.set('page', String(page));
-      params.set('limit', '12');
+      // 1. Chiamata pulita senza query params per evitare il 404 del backend
+      const { data } = await api.get('/products');
 
-      const { data } = await api.get(`/products?${params.toString()}`);
-      setProducts(data.products || []);
-      setTotalPages(data.pages || 1);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // Estraiamo l'array dei prodotti (gestisce sia array diretto che oggetto { products: [...] })
+      let allProducts: any[] = [];
+      if (Array.isArray(data)) {
+        allProducts = data;
+      } else if (data && Array.isArray(data.products)) {
+        allProducts = data.products;
+      }
+
+      // 2. Filtraggio sul frontend
+      let filtered = [...allProducts];
+
+      if (category) {
+        filtered = filtered.filter(
+          (p) => p.category?.toLowerCase() === category.toLowerCase(),
+        );
+      }
+      if (organic) {
+        filtered = filtered.filter(
+          (p) =>
+            String(p.isOrganic) === organic || String(p.organic) === organic,
+        );
+      }
+      if (minPrice) {
+        filtered = filtered.filter((p) => p.price >= Number(minPrice));
+      }
+      if (maxPrice) {
+        filtered = filtered.filter((p) => p.price <= Number(maxPrice));
+      }
+
+      // 3. Ordinamento sul frontend
+      if (sort === 'price_asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === 'sort' || sort === 'price_desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sort === 'rating') {
+        filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      }
+
+      // 4. Paginazione sul frontend (12 prodotti per pagina)
+      const limit = 12;
+      const total = Math.ceil(filtered.length / limit) || 1;
+      const startIndex = (page - 1) * limit;
+      const paginatedProducts = filtered.slice(startIndex, startIndex + limit);
+
+      // 5. Aggiornamento dello Stato
+      setProducts(paginatedProducts);
+      setTotalPages(total);
     } catch (error: any) {
       toast.error(
         error?.response?.data?.message ||
