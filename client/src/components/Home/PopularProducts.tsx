@@ -11,20 +11,28 @@ const PopularProducts = () => {
 
   useEffect(() => {
     api
-      .get('/products?sort=rating')
-      .then(({ data }) => {
-        console.log('RISPOSTA DAL BACKEND:', data); // <-- GUARDA QUESTO NELLA CONSOLE (F12)
+      .get('/products')
+      .then((res) => {
+        console.log('RISPOSTA COMPLETA BACKEND:', res.data);
 
-        // Se data è già l'array dei prodotti:
-        if (Array.isArray(data)) {
-          setProducts(data);
+        // Estraiamo l'array prodotti considerando tutte le strutture possibili
+        let list: any[] = [];
+
+        if (res.data && Array.isArray(res.data.products)) {
+          list = res.data.products; // <-- Struttura reale del tuo backend { products: [...] }
+        } else if (Array.isArray(res.data)) {
+          list = res.data;
         }
-        // Se data è un oggetto { products: [...] }:
-        else if (data && Array.isArray(data.products)) {
-          setProducts(data.products);
-        }
+
+        // Ordiniamo per rating se necessario
+        const sorted = [...list].sort(
+          (a, b) => (b.rating || 0) - (a.rating || 0),
+        );
+
+        setProducts(sorted);
       })
       .catch((error: any) => {
+        console.error('Errore durante il caricamento:', error);
         toast.error(error?.response?.data?.message || error?.message);
       });
   }, []);
