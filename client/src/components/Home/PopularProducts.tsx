@@ -10,6 +10,8 @@ const PopularProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    // 🔍 STAMPA DI DIAGNOSTICA:
+    console.log('BASE URL ATTUALE:', api.defaults.baseURL);
     api
       .get('/products')
       .then((res) => {
