@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = axios.create({
   baseURL:
     import.meta.env.VITE_BASE_URL ||
-    'https://https://supermercato-server.vercel.app/.onrender.com/api',
+    'https://supermercato-server.vercel.app/.onrender.com/api',
 });
 // Inject JWT token localStorage into every request
 api.interceptors.request.use((config) => {
