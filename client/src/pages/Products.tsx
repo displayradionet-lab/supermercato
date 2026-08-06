@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import type { Product } from '../types';
@@ -106,6 +107,7 @@ const Products = () => {
   const hasFilters = Boolean(category || organic || minPrice || maxPrice);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, organic, sort, page, minPrice, maxPrice]);
@@ -120,7 +122,7 @@ const Products = () => {
           </Link>
           <span>/</span>
           <span className="text-app-green font-medium">
-            {activeCategory ? activeCategory.name : 'All Products'}
+            {activeCategory ? activeCategory.name : 'All Products - Tutti i prodotti'}
           </span>
         </nav>
 
@@ -147,7 +149,7 @@ const Products = () => {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h1 className="text-2xl font-bold text-app-text">
-                  {activeCategory ? activeCategory.name : 'All Products'}
+                  {activeCategory ? activeCategory.name : 'All Products - Tutti i prodotti'}
                 </h1>
                 <p className="text-sm text-app-text-light mt-0.5">
                   {products.length} prodotti trovati

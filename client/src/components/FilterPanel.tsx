@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 const FilterPanel = (
     {categories, category, minPrice, maxPrice, updateFilter, clearFilters, hasFilters}: any) => {
         
-    const categoriesWithAll = [{slug: "", name: "All Categories"}, ...categories]
+    const categoriesWithAll = [{slug: "", name: "Tutte le Categorie"}, ...categories]
 
   return (
     <div className="space-y-6">
@@ -12,7 +14,7 @@ const FilterPanel = (
                     {categoriesWithAll.map((cat: any) => (
                         <button key={cat.slug} onClick={()=>updateFilter("category", cat.slug)}
                         className={`block w-full text-left px-3 py-2 text-sm rounded-md transition-all ${
-                            category === cat.slug ? "bg-green-900 text-white" :
+                            category === cat.slug ? "bg-yellow-100 text-gray-600" :
                              "text-app-text-light hover:bg-app-cream"
                         }`}>
                             {cat.name}

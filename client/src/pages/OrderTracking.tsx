@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import type { Order } from "../types";
@@ -125,7 +126,7 @@ const OrderTracking = () => {
             <br />
             {order.shippingAddress.address}
             <br />
-            {order?.shippingAddress.city}, {order?.shippingAddress.state}
+            {order?.shippingAddress.city}, {order?.shippingAddress.state} {" "}
             {order?.shippingAddress.zip}
           </p>
           </div>

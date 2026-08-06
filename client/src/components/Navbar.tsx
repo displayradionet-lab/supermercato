@@ -1,6 +1,5 @@
 import {
-  ArrowUpRightIcon,
-  BikeIcon,
+  ArrowUpRightIcon,  
   ChevronDownIcon,
   LogOutIcon,
   MapPinIcon,
@@ -41,7 +40,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white sticky top-0 z-50 border-b border-app-border">
+    <nav className="bg-linear-to-r from-green-300 via-yellow-100 to-green-300
+     sticky top-0 z-50 border-b border-app-border">
       <div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center 
         justify-between h-16 gap-4"
@@ -51,7 +51,7 @@ const Navbar = () => {
           to={'/'}
           className="flex items-center gap-2 text-[22px] font-medium shrink-0"
         >
-          <BikeIcon size={24} />
+           🎯
           SuperMercato
         </Link>
 
@@ -96,7 +96,7 @@ const Navbar = () => {
               {/* total numbers of items in the cart */}
               {cartCount > 0 && (
                 <span
-                  className="absolute -top-1 -right-1 size-4 bg-app-orange text-white text-[10px] 
+                  className="absolute -top-1 -right-1 size-4 bg-yellow-100 text-gray-700 text-[10px] 
                         rounded-full flex-center"
                 >
                   {cartCount}
@@ -124,7 +124,7 @@ const Navbar = () => {
                     to={'/login'}
                     className="hidden md:flex 
                                 items-center gap-2 px-4 py-2 text-sm font-medium 
-                                text-white bg-green-900 rounded-full 
+                                text-gray-900 bg-yellow-100 rounded-full 
                                 hover:bg-green-950-light transition-colors"
                   >
                     <UserIcon size={16} /> Entra

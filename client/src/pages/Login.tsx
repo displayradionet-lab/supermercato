@@ -67,7 +67,7 @@ const Login = () => {
           {/* form header msg */}
           <div className="text-center mb-8">
             <Link to={'/'} className="inline-flex items-center gap-2 mb-6">
-              <BikeIcon className="size-8 text-app-green" />
+              🎯
               <span className="text-2xl font-semibold text-app-green">
                 SuperMercato
               </span>
@@ -147,7 +147,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="flex-center w-full py-3 bg-green-900 text-white font-semibold rounded-xl 
+              className="flex-center w-full py-3 bg-green-600 text-white font-semibold rounded-xl 
               hover:bg-green-900 transition-colors disabled:opacity-50"
             >
               {loading ? (
