@@ -27,7 +27,7 @@ const Hero = () => {
                             hover:bg-orange-500 transition-all flex-center gap-2 active:scale-[0.98]">
                            Compra Ora <ArrowRightIcon className="size-4"/>
                            </Link> 
-                           <Link to={'/products'}
+                           <Link to={'/categories'}
                             className="px-7 py-2 bg-white/10 text-white font-semibold rounded-full 
                             hover:bg-white/20 flex-center gap-2 transition-all border border-white/20">
                            Categorie <ArrowRightIcon className="size-4"/>
