@@ -24,13 +24,12 @@ const Banner = () => {
                 <span className="hidden sm:inline text-white/40">|</span>
                 <div className="hidden sm:flex items-center gap-2">
                 <ZapIcon className="size-3.5 fill-yellow-400 text-yellow-400 shrink-0"/>
-                <span>Freschi di campagnia giornalmente</span>
+                <span>Arrivano Prodotti Freschi di campagnia giornalmente</span>
                 </div>
                 </div>
                 <button onClick={dismissBanner} className="absolute right-2 top-1/2 
                 -translate-y-1/2 hover:bg-white/10 rounded-full transition-colors">
                     <XIcon className="size-3.5"/>
-
                 </button>
             </div>
         )}
