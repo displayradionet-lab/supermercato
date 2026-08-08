@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link to={'/'} className="flex items-center gap-2 mb-4">
-              <BikeIcon className="size-6 text-white" />
+              🎯
               <span className="text-xl font-semibold">
                 {footerData.brand.name}
               </span>
