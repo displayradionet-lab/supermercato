@@ -28,7 +28,7 @@ const CartSidebar = () => {
             <div className="flex items-center justify-between p-5 border-b border-app-border">
         <div className="flex items-center gap-2">
             <ShoppingBagIcon className="size-5"/>
-            <h2 className="text-lg font-medium">La tua carrello</h2>
+            <h2 className="text-lg font-medium">Il tuo carrello</h2>
             <span className="px-2 py-0.5 text-xs font-semibold bg-app-cream rounded-full">
                 {items.length} items
             </span>
@@ -45,7 +45,7 @@ const CartSidebar = () => {
         {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
                 <ShoppingCartIcon className="size-16 text-app-border mb-4"/>
-                <h3 className="text-lg font-medium mb-1">La tua carrello e` vuoto!</h3>
+                <h3 className="text-lg font-medium mb-1">Il tuo carrello e` vuoto!</h3>
             </div>
         ) : (
             items.map((item)=>(
