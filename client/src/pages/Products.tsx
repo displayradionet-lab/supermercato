@@ -160,7 +160,8 @@ const Products = () => {
                 {/* Mobile filter toggle */}
                 <button
                   onClick={() => setMobileFilterOpen(true)}
-                  className="lg:hidden flex items-center gap-2 px-3 py-2 text-sm bg-white rounded-xl border border-app-border hover:bg-app-cream transition-colors"
+                  className="lg:hidden flex items-center gap-2 px-3 py-2 text-sm
+                   bg-white rounded-xl border border-app-border hover:bg-app-cream transition-colors"
                 >
                   <SlidersHorizontal className="size-4" />
                   <span>Filtri</span>
@@ -179,7 +180,8 @@ const Products = () => {
                     <option value="rating">Top recensiti</option>
                     <option value="name">A - Z</option>
                   </select>
-                  <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-app-text-light pointer-events-none" />
+                  <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2
+                   w-3.5 h-3.5 text-app-text-light pointer-events-none" />
                 </div>
               </div>
             </div>
@@ -208,7 +210,7 @@ const Products = () => {
                   (product) =>
                     product.stock > 0 && (
                       <ProductCard key={product.id} product={product} />
-                    ),
+                    )
                 )}
               </div>
             )}

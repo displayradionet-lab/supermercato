@@ -10,7 +10,7 @@ const FilterPanel = (
         {/* Categories */}
         <div className="">
             <h3 className="text-sm font-medium text-app-green mb-3">Categorie</h3>
-                <div className="spay1.5">
+                <div className="space-y-1.5">
                     {categoriesWithAll.map((cat: any) => (
                         <button key={cat.slug} onClick={()=>updateFilter("category", cat.slug)}
                         className={`block w-full text-left px-3 py-2 text-sm rounded-md transition-all ${

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import type { Product } from '../../types';
 import { Link } from 'react-router-dom';
@@ -10,8 +11,7 @@ const PopularProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    // 🔍 STAMPA DI DIAGNOSTICA:
-    console.log('BASE URL ATTUALE:', api.defaults.baseURL);
+   
     api
       .get('/products')
       .then((res) => {
