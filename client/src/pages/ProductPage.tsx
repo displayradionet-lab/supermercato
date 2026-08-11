@@ -3,7 +3,16 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import type { Product } from '../types';
 
 import Loading from '../components/Loading';
-import { ArrowLeftIcon, ArrowRightIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, ShoppingCartIcon, StarIcon } from 'lucide-react';
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  HomeIcon,
+  LeafIcon,
+  MinusIcon,
+  PlusIcon,
+  ShoppingCartIcon,
+  StarIcon,
+} from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import DummyReviewsSection from '../assets/DummyReviewsSection';
 import ProductCard from '../components/ProductCard';
@@ -20,17 +29,22 @@ const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [localQuantity, setLocalQuantity] = useState(1);
 
-  useEffect(() => {  
+  useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setLocalQuantity(1);
-    window.scrollTo(0, 0);   
-   api.get(`/products/${id}`).then(({data}) => {
-    setProduct(data.product);
-    return api.get(`/products?category=${data.product.category}`)
-   }).then(({data})=>{
-    setRelatedProducts(data.products.filter((p: Product) => p.id !== id))
-   }).catch(()=>navigate("/products")).finally(()=> setLoading(false))
+    window.scrollTo(0, 0);
+    api
+      .get(`/products/${id}`)
+      .then(({ data }) => {
+        setProduct(data.product);
+        return api.get(`/products?category=${data.product.category}`);
+      })
+      .then(({ data }) => {
+        setRelatedProducts(data.products.filter((p: Product) => p.id !== id));
+      })
+      .catch(() => navigate('/products'))
+      .finally(() => setLoading(false));
   }, [id, navigate]);
 
   if (loading) return <Loading />;
@@ -43,19 +57,19 @@ const ProductPage = () => {
   const categoryLabel = product.category.replace(/-/g, ' ');
 
   const handleMinus = () => {
-    if (inCart){
-      if (cartItem.quantity > 1) updateQuantity(product.id, cartItem.quantity - 1)
-        else removeFromCart(product.id)
+    if (inCart) {
+      if (cartItem.quantity > 1)
+        updateQuantity(product.id, cartItem.quantity - 1);
+      else removeFromCart(product.id);
     } else {
-      setLocalQuantity(Math.max(1, localQuantity -1))
+      setLocalQuantity(Math.max(1, localQuantity - 1));
     }
-  }
+  };
 
-   const handlePlus = () => {
-    if (inCart) updateQuantity(product.id, cartItem.quantity +1)
-      else setLocalQuantity(localQuantity +1)
-    
-  }
+  const handlePlus = () => {
+    if (inCart) updateQuantity(product.id, cartItem.quantity + 1);
+    else setLocalQuantity(localQuantity + 1);
+  };
 
   return (
     <div className="min-h-screen">
@@ -122,103 +136,134 @@ const ProductPage = () => {
 
             {/* right side details */}
             <div className="p-6 md:p-10 flex flex-col justify-center">
-              <span 
-              className='text-xs font-medium text-app-text-light tracking-wider mb-2 capitalize'
-              >{categoryLabel}</span>
-              <h1 className='text-2xl md:text-3xl font-semibold text-green-700 mb-3'>{product.name}</h1>
+              <span className="text-xs font-medium text-app-text-light tracking-wider mb-2 capitalize">
+                {categoryLabel}
+              </span>
+              <h1 className="text-2xl md:text-3xl font-semibold text-green-700 mb-3">
+                {product.name}
+              </h1>
 
               {/* rating */}
               {product.rating > 0 && (
                 <div className="flex items-center gap-2 mb-5">
-                  <div className='flex items-center gap-0.5'>
-                    {[1,2,3,4,5].map((star)=> (
-                      <StarIcon key={star} className={`w-4 h-4 ${
-                        star <= Math.round(product.rating)
-                        ? "text-app-warning fill-app-warning" 
-                        : "text-app-border"
-                      }`}/>
+                  <div className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <StarIcon
+                        key={star}
+                        className={`w-4 h-4 ${
+                          star <= Math.round(product.rating)
+                            ? 'text-app-warning fill-app-warning'
+                            : 'text-app-border'
+                        }`}
+                      />
                     ))}
                   </div>
-                  <span className='font-medium text-sm'>{product.rating}</span>
-                  <span className='text-sm text-app-text-light'>({product.reviewCount} Reviews)</span>
+                  <span className="font-medium text-sm">{product.rating}</span>
+                  <span className="text-sm text-app-text-light">
+                    ({product.reviewCount} Reviews)
+                  </span>
                 </div>
               )}
 
               {/* price */}
               <div className="flex items-baseline gap-3 mb-5">
-                <span className="text-3xl md:text-4xl font-semibold text-green-600">{currency} {product.price.toFixed(2)}</span>
+                <span className="text-3xl md:text-4xl font-semibold text-green-600">
+                  {currency} {product.price.toFixed(2)}
+                </span>
                 {product.originalPrice > product.price && (
-                  <span className="text-lg text-green-700 line-through">{currency} {product.originalPrice.toFixed(2)}</span>
+                  <span className="text-lg text-green-700 line-through">
+                    {currency} {product.originalPrice.toFixed(2)}
+                  </span>
                 )}
               </div>
 
               {/* description */}
-              <p className="text-sm text-app-text-light leading-relaxed mb-6">{product.description}</p>
+              <p className="text-sm text-app-text-light leading-relaxed mb-6">
+                {product.description}
+              </p>
 
               {/* Stock */}
               <div className="mb-6">
-              {product.stock > 0 ? (
-                <span className="text-sm text-app-success font-medium"
-                >✓ In Stock ({product.stock} available)</span>
-              ) : (
-                <span className="text-sm bg-app-error font-medium">Out of stock</span>
-              )}
+                {product.stock > 0 ? (
+                  <span className="text-sm text-app-success font-medium">
+                    ✓ In Stock ({product.stock} available)
+                  </span>
+                ) : (
+                  <span className="text-sm bg-app-error font-medium">
+                    Out of stock
+                  </span>
+                )}
               </div>
 
-            {/* quantity + Add to Cart */}
-            <div className="flex items-center gap-3">
-              {/* Quantity */}
-              <div className="flex items-center border border-app-border rounded-xl overflow-hidden">
-                <button onClick={handleMinus} 
-                className='p-3 hover:bg-app-cream transition-colors'>
-                  <MinusIcon className='w-4 h-4'/>
-                </button>
-                <span>{displayQuantity}</span>
-                <button onClick={handlePlus}  
-                className='p-3 hover:bg-app-cream transition-colors'>
-                  <PlusIcon className='w-4 h-4'/>
-                  </button>                  
-                  </div>
+              {/* quantity + Add to Cart */}
+              <div className="flex items-center gap-3">
+                {/* Quantity */}
+                <div className="flex items-center border border-app-border rounded-xl overflow-hidden">
+                  <button
+                    onClick={handleMinus}
+                    className="p-3 hover:bg-app-cream transition-colors"
+                  >
+                    <MinusIcon className="w-4 h-4" />
+                  </button>
+                  <span>{displayQuantity}</span>
+                  <button
+                    onClick={handlePlus}
+                    className="p-3 hover:bg-app-cream transition-colors"
+                  >
+                    <PlusIcon className="w-4 h-4" />
+                  </button>
+                </div>
                 {/* Add to cart */}
-                <button disabled={product.stock === 0} 
-                onClick={()=>{if(!inCart) addToCart(product, localQuantity)}}
-                className={`flex-1 py-3 font-semibold rounded-xl transition-colors flex-center gap-2 
+                <button
+                  disabled={product.stock === 0}
+                  onClick={() => {
+                    if (!inCart) addToCart(product, localQuantity);
+                  }}
+                  className={`flex-1 py-3 font-semibold rounded-xl transition-colors flex-center gap-2 
                   disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] ${
-                    inCart ? "bg-app-cream text-green-700 border border-green-800" 
-                    : "bg-orange-500 text-white hover:bg-orange-700"
-                  }`}>
-                  <ShoppingCartIcon className='w-4 h-4'/>
-                  {inCart ? "Added to Cart" : "Add to Cart"}
+                    inCart
+                      ? 'bg-app-cream text-green-700 border border-green-800'
+                      : 'bg-orange-500 text-white hover:bg-orange-700'
+                  }`}
+                >
+                  <ShoppingCartIcon className="w-4 h-4" />
+                  {inCart ? 'Added to Cart' : 'Add to Cart'}
                 </button>
+              </div>
             </div>
-                  </div>
           </div>
         </div>
       </div>
-        {/* Customers Reviews */}
-       {product.reviewCount > 0 && <DummyReviewsSection product={product}/>}
+      {/* Customers Reviews */}
+      {product.reviewCount > 0 && <DummyReviewsSection product={product} />}
 
-        {/* Related Products */}
-        {relatedProducts.length > 0 && (
-          <section className='mt-12 mb-44 px-6'>
-            <div className="flex items-center justify-between mb-6">
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <section className="mt-12 mb-44 px-6">
+          <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-semibold text-app-green">Related Products</h2>
-              <p className='text-sm mt-1 text-app-text-light'>More from {categoryLabel}</p>
+              <h2 className="text-2xl font-semibold text-app-green">
+                Related Products
+              </h2>
+              <p className="text-sm mt-1 text-app-text-light">
+                More from {categoryLabel}
+              </p>
             </div>
-            <Link to={`/products?category=${product.category}`}
-            className='text-sm font-semibold text-app-orange hover:text-app-orange-dark 
-            flex items-center gap-1 transform-colors'>
-            View All <ArrowRightIcon className='size-4'/>
+            <Link
+              to={`/products?category=${product.category}`}
+              className="text-sm font-semibold text-app-orange hover:text-app-orange-dark 
+            flex items-center gap-1 transform-colors"
+            >
+              View All <ArrowRightIcon className="size-4" />
             </Link>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 xl:gap-8">
-            {relatedProducts.slice(0,5).map((rp) => (
-              <ProductCard key={rp.id} product={rp}/>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 xl:gap-8">
+            {relatedProducts.slice(0, 5).map((rp) => (
+              <ProductCard key={rp.id} product={rp} />
             ))}
-            </div>
-          </section>
-        )}
+          </div>
+        </section>
+      )}
     </div>
   );
 };

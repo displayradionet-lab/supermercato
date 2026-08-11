@@ -112,8 +112,7 @@ const MyOrders = () => {
                   </div>
 
                   {/* Right Status Badge */}
-                  <div className="flex items-center gap-2">
-                    {/* 🟢 CORRETTO: Adesso il testo è dentro lo span del badge */}
+                  <div className="flex items-center gap-2">                  
                     <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
                       statusColors[order.status] || "bg-gray-100 text-gray-700" 
                     }`}>

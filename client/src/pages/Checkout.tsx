@@ -166,7 +166,7 @@ const Checkout = () => {
                 font-medium transition-colors ${
                   step == s.key
                     ? 'bg-app-green text-white'
-                    : 'bg-white to-app-text-light'
+                    : 'bg-white text-app-text-light'
                 }`}
               >
                 <s.icon className="size-4" /> {s.label}
