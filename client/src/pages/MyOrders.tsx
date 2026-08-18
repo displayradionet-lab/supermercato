@@ -23,7 +23,7 @@ const MyOrders = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const tabs = ["all", "Placed", "Out of delivery", "delivered"];
+  const tabs = ["all", "Placed", "Out of delivery", "Delivered"];
   const { clearCart } = useCart();
 
   const fetchOrders = async () => {

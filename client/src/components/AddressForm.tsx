@@ -50,7 +50,7 @@ const AddressForm = ({
                     focus:border-app-green outline-none"
               />
             </div>
-            <div className="">
+            <div>
               <label className="block text-sm font-medium text-green-600 mb-1.5">
                 Strada
               </label>

@@ -75,7 +75,8 @@ const SearchResults = () => {
             <p className="text-sm text-app-text-light mb-6 max-w-md mx-auto">
               We couldn't find any products matching "{query || category}". 
             </p>
-            <Link to={'/products'} className="inline-flex px-5 py-2.5 bg-app-green text-white text-sm font-medium rounded-lg">
+            <Link to={'/products'} className="inline-flex px-5 py-2.5 bg-app-green text-white
+             text-sm font-medium rounded-lg">
               Browse all products
             </Link>
           </div>

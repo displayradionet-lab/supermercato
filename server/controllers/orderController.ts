@@ -27,7 +27,8 @@ export const createOrder = async (req: Request, res: Response) => {
     for (const item of items) {
       const product = productMap[item.product];
       if (!product || (product.stock ?? 0) < item.quantity) {
-        return res.status(404).json({ message: `Product ${product?.name || 'Unknown'} out of stock or not found` });
+        return res.status(404).json({ message: `Product ${product?.name || 'Unknown'}
+           out of stock or not found` });
       }
     }
 
@@ -125,12 +126,7 @@ return res.json({url: session.url})
       })
     }
 
-    // Send stock update events for each product in the order
-    // for(const item of orderItems){
-    //   await inngest.send({name: "inventory/stock.updated", data: {
-    //     productId: item.product
-    //   }})
-    // }
+   
 
     // MANDIAMO I COLPETTI A INNGEST IN PARALLELO per non rallentare la risposta
     // Nota: Ottimizza Inngest muovendo il decremento stock lì se preferisci un approccio totalmente event-driven

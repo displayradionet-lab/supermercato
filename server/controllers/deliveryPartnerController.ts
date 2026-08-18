@@ -3,8 +3,6 @@ import { prisma } from '../config/prisma.js';
 import bcrypt from 'bcrypt';
 import  jwt  from 'jsonwebtoken';
 
-
-
 const generateToken = (id: string)=>{
     return jwt.sign({id, role: "delivery"}, process.env.JWT_SECRET as string,
         {expiresIn: "30d"}
@@ -125,7 +123,6 @@ const updatedOrder = await prisma.order.update({
 res.json({order: updatedOrder, message: "Delivery completed Successfully"})
 }
 // Cancel delivery - PUT 
-
 export const cancelDelivery = async (req: Request, res: Response) => {
     const {reason } = req.body;
     const order = await prisma.order.findFirst({

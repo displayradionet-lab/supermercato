@@ -10,8 +10,7 @@ import toast from 'react-hot-toast';
 const PopularProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-   
+  useEffect(() => {   
     api
       .get('/products')
       .then((res) => {

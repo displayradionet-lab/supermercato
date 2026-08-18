@@ -99,7 +99,7 @@ const Addresses = () => {
   };
 
   const getAddressId = (add: Address): string | null => {
-    const maybeId = (add as any).id ?? (add as any)._id;
+    const maybeId = (add as any).id ?? (add as any).id;
     return typeof maybeId === 'string' ? maybeId : null;
   };
 
